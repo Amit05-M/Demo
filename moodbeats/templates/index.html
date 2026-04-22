@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoodBeats — Music for Your Mood</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <!-- Background layers -->
+  <div class="bg-gradient"></div>
+  <div class="bg-noise"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">♪</span>
+      <span class="logo-text">MoodBeats</span>
+    </div>
+    <div class="header-tag">AI · Emotion · Music</div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-eyebrow">Emotion-Powered Recommendations</p>
+      <h1 class="hero-title">Music that<br/><em>feels like you</em></h1>
+      <p class="hero-sub">Show your face or speak — we read your mood and play the perfect Hindi or Marathi song.</p>
+    </section>
+
+    <!-- Control Panel -->
+    <section class="control-panel">
+
+      <!-- MODE TOGGLE -->
+      <div class="mode-toggle-wrap">
+        <div class="mode-label">Detect my mood using:</div>
+        <div class="mode-toggle" id="modeToggle">
+          <button class="mode-btn active" id="btnCamera" data-mode="camera">
+            <span class="mode-icon">📷</span>
+            <span>Camera</span>
+            <span class="mode-hint">Reads your face</span>
+          </button>
+          <div class="toggle-divider">or</div>
+          <button class="mode-btn" id="btnVoice" data-mode="voice">
+            <span class="mode-icon">🎤</span>
+            <span>Voice</span>
+            <span class="mode-hint">Reads your voice</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- LANGUAGE SELECTOR -->
+      <div class="lang-select-wrap">
+        <div class="mode-label">Language:</div>
+        <div class="lang-buttons">
+          <button class="lang-btn active" data-lang="both">Both</button>
+          <button class="lang-btn" data-lang="Hindi">Hindi</button>
+          <button class="lang-btn" data-lang="Marathi">Marathi</button>
+        </div>
+      </div>
+
+      <!-- DETECT BUTTON -->
+      <button class="detect-btn" id="detectBtn">
+        <span class="detect-icon">▶</span>
+        <span id="detectLabel">Detect My Mood</span>
+      </button>
+    </section>
+
+    <!-- Camera / Voice Feed Area -->
+    <section class="feed-section" id="feedSection">
+      <!-- Camera feed -->
+      <div id="cameraArea" class="feed-area">
+        <div class="feed-frame">
+          <video id="videoEl" autoplay playsinline muted></video>
+          <div id="camPlaceholder" class="feed-placeholder">
+            <div class="placeholder-icon">📷</div>
+            <p>Camera preview will appear here</p>
+            <p class="placeholder-hint">Allow camera access when prompted</p>
+          </div>
+          <div id="scanOverlay" class="scan-overlay hidden">
+            <div class="scan-bar"></div>
+            <div class="scan-text">Scanning face…</div>
+          </div>
+        </div>
+        <div id="camStatus" class="feed-status">Ready — click Detect My Mood</div>
+      </div>
+
+      <!-- Voice feed -->
+      <div id="voiceArea" class="feed-area hidden">
+        <div class="feed-frame voice-frame">
+          <div class="voice-visualizer" id="voiceViz">
+            <div class="mic-ring" id="micRing">
+              <div class="mic-icon">🎤</div>
+            </div>
+            <div class="wave-bars" id="waveBars">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div id="voicePlaceholder" class="feed-placeholder voice-placeholder">
+            <div class="placeholder-icon">🎤</div>
+            <p>Microphone will record here</p>
+            <p class="placeholder-hint">Allow microphone access when prompted</p>
+          </div>
+          <div id="voiceRecordingBadge" class="recording-badge hidden">
+            <span class="rec-dot"></span> Recording…
+          </div>
+        </div>
+        <div id="voiceStatus" class="feed-status">Ready — click Detect My Mood</div>
+      </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div id="loadingLayer" class="loading-layer hidden">
+      <div class="spinner"></div>
+      <p>Detecting emotion…</p>
+    </div>
+
+    <!-- Results -->
+    <section id="resultsSection" class="results-section hidden">
+      <div id="emotionBadge" class="emotion-badge">
+        <div class="emotion-emoji" id="emotionEmoji">😐</div>
+        <div class="emotion-info">
+          <div class="emotion-label" id="emotionLabel">neutral</div>
+          <div class="emotion-meta" id="emotionMeta">—</div>
+        </div>
+      </div>
+
+      <h2 class="playlist-title">Your Playlist</h2>
+      <div id="songGrid" class="song-grid"></div>
+    </section>
+
+    <!-- Error card -->
+    <div id="errorCard" class="error-card hidden">
+      <span>⚠️</span>
+      <span id="errorMsg">Something went wrong. Check camera/mic permissions and try again.</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>MoodBeats · Hindi &amp; Marathi · Powered by AI</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
